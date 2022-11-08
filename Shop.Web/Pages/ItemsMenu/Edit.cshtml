@@ -1,0 +1,70 @@
+﻿@page
+@model Shop.Web.Pages.ItemsMenu.EditModel
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1  id="lobsterFont">Edit</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Product.ProductId" />
+            <div class="form-group">
+                <label asp-for="Product.Name" class="control-label"></label>
+                <input asp-for="Product.Name" class="form-control" />
+                <span asp-validation-for="Product.Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.Price" class="control-label"></label>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockCoffee" class="control-label"></label>
+                <input asp-for="Product.StockCoffee" class="form-control" />
+                <span asp-validation-for="Product.StockCoffee" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockWater" class="control-label"></label>
+                <input asp-for="Product.StockWater" class="form-control" />
+                <span asp-validation-for="Product.StockWater" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockMilk" class="control-label"></label>
+                <input asp-for="Product.StockMilk" class="form-control" />
+                <span asp-validation-for="Product.StockMilk" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockIceCream" class="control-label"></label>
+                <input asp-for="Product.StockIceCream" class="form-control" />
+                <span asp-validation-for="Product.StockIceCream" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockChocolate" class="control-label"></label>
+                <input asp-for="Product.StockChocolate" class="form-control" />
+                <span asp-validation-for="Product.StockChocolate" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Product.StockSugar" class="control-label"></label>
+                <input asp-for="Product.StockSugar" class="form-control" />
+                <span asp-validation-for="Product.StockSugar" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-page="./Index">Back to Product Menu</a> |
+    <a asp-page="./Manager">Back to Manager</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

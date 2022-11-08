@@ -1,0 +1,67 @@
+﻿@page
+@model Shop.Web.Pages.ItemsMenu.DetailsModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1 id="lobsterFont">Details</h1>
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockCoffee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockCoffee)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockWater)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockWater)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockMilk)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockMilk)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockIceCream)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockIceCream)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockChocolate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockChocolate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockSugar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockSugar)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-page="./Edit" asp-route-id="@Model.Product?.ProductId">Edit</a> |
+    <a asp-page="./Index">Back to Product Menu</a> |
+    <a asp-page="./Manager">Back to Manager</a>
+</div>

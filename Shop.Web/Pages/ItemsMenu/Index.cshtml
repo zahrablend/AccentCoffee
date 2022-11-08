@@ -1,0 +1,58 @@
+﻿@page
+@model Shop.Web.Pages.ItemsMenu.IndexModel
+
+@{
+    ViewData["Title"] = "Product Menu";
+}
+
+<h1 id="lobsterFont">Product Menu</h1>
+
+
+<div id="container">
+    <div id="a">
+        <p>Date goes here </p>
+        <form method="get">
+            <button type="submit" class="ml-2 btn btn-link" asp-page="./Manager">Manage items</button>
+        </form>
+    </div>
+
+
+    <div id="b">
+            <form method="get" id="brick1">
+                @foreach (var item in Model.Product)
+                {
+                    <button class="prods" asp-page="/order" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</button>
+                }
+            </form>
+    </div>
+    <div id="c">
+        <div id="brick2">
+            <dl>
+                <dt>Subtotal:</dt>
+                <dd>0.00</dd>
+                <dt>Discount:</dt>
+                <dd>0.00</dd>
+                <dt>Total:</dt>
+                <dd>0.00</dd>
+            </dl>
+        </div>
+    </div>
+    <div id="d">
+        <div id="brick3">
+            <button class="calc_btn">7</button>
+            <button class="calc_btn">8</button>
+            <button class="calc_btn">9</button>
+            <button class="calc_btn">4</button>
+            <button class="calc_btn">5</button>
+            <button class="calc_btn">6</button>
+            <button class="calc_btn">3</button>
+            <button class="calc_btn">2</button>
+            <button class="calc_btn">1</button>
+            <button class="calc_btn">0</button>
+            <button id="disc_btn" class="calc_btn">%</button>
+            <button id="enter_btn" class="calc_btn">Enter</button>
+            <button id="receipt_btn" class="calc_btn" type="submit" onclick="window.location.href='https://localhost:7239/receipt';">Receipt</button>
+        </div>
+    </div>
+
+</div>

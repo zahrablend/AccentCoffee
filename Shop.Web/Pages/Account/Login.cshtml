@@ -1,0 +1,34 @@
+﻿@page
+@model Shop.Web.Pages.Account.LoginModel
+@{
+}
+<div class="container border" style="padding:20px">
+    <form method="post">
+        <div class="text-danger" asp-validation-summary="ModelOnly"></div>
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="AccountCredential.UserName"></label>
+            </div>
+            <div class="col-5">
+                <input type="text" asp-for="AccountCredential.UserName" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="AccountCredential.UserName"></span>
+        </div>
+
+        <div class="form-group row">
+            <div class="col-2">
+                <label asp-for="AccountCredential.Password"></label>
+            </div>
+            <div class="col-5">
+                <input type="password" asp-for="AccountCredential.Password" class="form-control" />
+            </div>
+            <span class="text-danger" asp-validation-for="AccountCredential.Password"></span>
+        </div>
+        <div class="form-group-row">
+            <div class="col-2">
+                <input type="submit" class="btn btn-primary" value="Login" />
+            </div>
+            <div class="col-5"></div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,70 @@
+﻿@page
+@model Shop.Web.Pages.ItemsMenu.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete";
+}
+
+<h1 id="lobsterFont">Delete</h1>
+
+<p>Are you sure you want to delete this?</p>
+<div>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Name)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Name)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.Price)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.Price)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockCoffee)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockCoffee)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockWater)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockWater)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockMilk)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockMilk)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockIceCream)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockIceCream)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockChocolate)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockChocolate)
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Product.StockSugar)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Product.StockSugar)
+        </dd>
+    </dl>
+    
+    <form method="post">
+        <input type="hidden" asp-for="Product.ProductId" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index">Back to Product Menu</a> |
+        <a asp-page="./Manager">Back to Manager</a>
+    </form>
+</div>
