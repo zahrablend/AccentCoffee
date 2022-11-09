@@ -1,0 +1,78 @@
+﻿@page "{searchString?}"
+@model Shop.Web.Pages.ReportsModel
+
+@{
+    ViewData["Title"] = "Reports";
+}
+
+<h1 id="lobsterFont">Reports</h1>
+
+<form>
+    <p>
+        Search data: <input type="text" asp-for="SearchString" />
+        <input type="submit" value="Filter" />
+    </p>
+</form>
+
+<hr />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockCoffee)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockWater)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockMilk)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockIceCream)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockChocolate)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Product[0].StockSugar)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model.Product) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockCoffee)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockWater)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockMilk)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockIceCream)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockChocolate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StockSugar)
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

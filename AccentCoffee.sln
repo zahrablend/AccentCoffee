@@ -5,11 +5,11 @@ VisualStudioVersion = 17.3.32929.385
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "domain", "domain", "{A9E6F0AE-86F7-4F63-96E0-D13E8F8900D4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Domain", "Shop.Domain\Shop.Domain.csproj", "{264E8735-937F-4140-92A9-E50DAB5114CA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Domain", "Shop.Domain\Shop.Domain.csproj", "{264E8735-937F-4140-92A9-E50DAB5114CA}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "presentation", "presentation", "{E5FDCA17-D9D5-4B9A-B0F6-B25A1924958E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shop.Web", "Shop.Web\Shop.Web.csproj", "{0F2BB079-5AA3-4507-8560-2E9B15793796}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shop.Web", "Shop.Web\Shop.Web.csproj", "{0F2BB079-5AA3-4507-8560-2E9B15793796}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

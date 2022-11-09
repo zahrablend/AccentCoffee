@@ -12,7 +12,7 @@ namespace Shop.Domain.Models
         public int ReceiptId { get; set; }
         public DateTime Created { get; set; }
 
-        public List<OrderLine>? Items { get; set; }
+        //public List<OrderLine>? Items { get; set; }
 
         public double Total { get; private set; }
 

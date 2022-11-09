@@ -14,9 +14,9 @@ namespace Shop.Web.Pages.ItemsMenu
     [Authorize(Policy = "MustBeStaffManager")]
     public class ManagerModel : PageModel
     {
-        private readonly Shop.Web.Data.ShopWebContext _context;
+        private readonly ShopWebContext _context;
 
-        public ManagerModel(Shop.Web.Data.ShopWebContext context)
+        public ManagerModel(ShopWebContext context)
         {
             _context = context;
         }

@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Xml.Linq;
 
 namespace Shop.Domain.Models
@@ -24,7 +25,10 @@ namespace Shop.Domain.Models
         [Display(Name = "Sugar")]
         public int StockSugar { get; set; }
 
-        //public virtual ICollection<OrderLine>? OrderLines { get; set; }
+        //public OrderLine OrderLine { get; set; }
+        //public Receipt? Receipt { get; set; }
+
+
 
     }
 }
