@@ -6,11 +6,31 @@
 }
 
 <h1 id="lobsterFont">Product Menu</h1>
+<script>
+    const items = @Json.Serialize(Model.Product.Select(p => new {p.ProductId, p.Name, p.Price}));
+    //display product name and price per item
+    function chooseProduct(productId) {
+        const product = items.find(i => i.productId === productId);
+        document.getElementById('prodName').innerHTML = product.name;
+        document.getElementById('prodPrice').innerHTML = product.price;
+    }
+    //display product quantity
+    function calculate(value) {
+        document.getElementById('prodQnty').value += value;
+    }
+    //calculate and display line total (subtotal) = returns NaN
+    function subtotal(value) {
+        document.getElementById('subtotal').value = (document.getElementById('prodPrice').value) * (document.getElementById('prodQnty').value)
+    }
+    //clear quantity input
 
+
+</script>
 
 <div id="container">
     <div id="a">
         <p>Date goes here </p>
+
         <form method="get">
             <button type="submit" class="ml-2 btn btn-link" asp-page="./Manager">Manage items</button>
         </form>
@@ -18,41 +38,56 @@
 
 
     <div id="b">
-            <form method="get" id="brick1">
-                @foreach (var item in Model.Product)
-                {
-                    <button class="prods" asp-page="/order" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</button>
-                }
-            </form>
+        <div id="itemsMenu">
+            @foreach (var item in Model.Product)
+            {
+                <button class="prods" asp-page="/order" onclick="chooseProduct(@item.ProductId)" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</button>
+
+                @*
+                    either this:
+                <input type="button" class="prods" name="product" value="@Html.DisplayFor(modelItem => item.Name)" onclick="chooseProduct(@item.ProductId)">*@
+            }
+        </div>
     </div>
+
     <div id="c">
-        <div id="brick2">
+        <div id="display">
             <dl>
+                <dt id="prodName"></dt>
+                <dd id="prodPrice"></dd>
+                <dd>
+                    <input type="text" id="prodQnty" name="displayQnty">
+                </dd>
                 <dt>Subtotal:</dt>
-                <dd>0.00</dd>
+                <dd>
+                    <input type="text" id="subtotal" name="displaySubtotal" placeholder="0 EUR">
+                </dd>
                 <dt>Discount:</dt>
-                <dd>0.00</dd>
+                <dd>
+                    <input type="text" id="discount" name="displayDiscount" placeholder="0 %">
+                </dd>
                 <dt>Total:</dt>
-                <dd>0.00</dd>
+                <dd> 
+                    <input type="text" id="total" name="displayTotal" placeholder="0 EUR">
+                </dd>
             </dl>
         </div>
-    </div>
-    <div id="d">
-        <div id="brick3">
-            <button class="calc_btn">7</button>
-            <button class="calc_btn">8</button>
-            <button class="calc_btn">9</button>
-            <button class="calc_btn">4</button>
-            <button class="calc_btn">5</button>
-            <button class="calc_btn">6</button>
-            <button class="calc_btn">3</button>
-            <button class="calc_btn">2</button>
-            <button class="calc_btn">1</button>
-            <button class="calc_btn">0</button>
-            <button id="disc_btn" class="calc_btn">%</button>
-            <button id="enter_btn" class="calc_btn">Enter</button>
-            <button id="receipt_btn" class="calc_btn" type="submit" onclick="window.location.href='https://localhost:7239/receipt';">Receipt</button>
-        </div>
+        <div id="calculator">
+            <input type="button" class="calc" name="7" value="7" onclick="calculate(7)">
+            <input type="button" class="calc" name="8" value="8" onclick="calculate(8)">
+            <input type="button" class="calc" name="9" value="9" onclick="calculate(9)">
+            <input type="button" class="calc" name="4" value="4" onclick="calculate(4)">
+            <input type="button" class="calc" name="5" value="5" onclick="calculate(5)">
+            <input type="button" class="calc" name="6" value="6" onclick="calculate(6)">
+            <input type="button" class="calc" name="2" value="2" onclick="calculate(2)">
+            <input type="button" class="calc" name="3" value="3" onclick="calculate(3)">
+            <input type="button" class="calc" name="0" value="0" onclick="calculate(0)">
+            <input type="button" class="calc" name="1" value="1" onclick="calculate(1)">
+            <input type="button" id="disc_btn" class="calc" name="discount" value="%" onclick="">
+            <button id="enter_btn" class="calc" type="submit" onclick="subtotal()">Enter</button>
+           
+            <button id="receipt_btn" class="calc" type="submit" onclick="finalResult(); window.location.href='https://localhost:7239/receipt';">Receipt</button>
+        </div> 
     </div>
 
 </div>
