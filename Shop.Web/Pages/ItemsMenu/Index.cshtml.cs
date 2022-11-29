@@ -21,6 +21,7 @@ namespace Shop.Web.Pages.ItemsMenu
             _context = context;
         }
 
+
         public IList<Product> Product { get;set; } = default!;
 
         public async Task OnGetAsync()

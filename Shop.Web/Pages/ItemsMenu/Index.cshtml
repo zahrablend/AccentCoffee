@@ -5,14 +5,15 @@
     ViewData["Title"] = "Product Menu";
 }
 
+
 <h1 id="lobsterFont">Product Menu</h1>
 <script>
     const items = @Json.Serialize(Model.Product.Select(p => new {p.ProductId, p.Name, p.Price}));
     //display product name and price per item
     function chooseProduct(productId) {
         const product = items.find(i => i.productId === productId);
-        document.getElementById('prodName').innerHTML = product.name;
-        document.getElementById('prodPrice').innerHTML = product.price;
+        document.getElementById('prodName').value = product.name;
+        document.getElementById('prodPrice').value = product.price;
     }
     //display product quantity
     function calculate(value) {
@@ -20,16 +21,38 @@
     }
     //calculate and display line total (subtotal) = returns NaN
     function subtotal(value) {
-        document.getElementById('subtotal').value = (document.getElementById('prodPrice').value) * (document.getElementById('prodQnty').value)
+        document.getElementById('subtotal').value = (document.getElementById('prodPrice').value) * (document.getElementById('prodQnty').value);
     }
-    //clear quantity input
+    //clear quantity input after calculating line amount
+    function clearAmount() {
+        document.getElementById('prodQnty').value = "";
+    }
+    //apply discount
+    function applyDiscount() {
+    }
+    //total sum of receipt - return 0! Array problem?
 
+    //function receiptTotalSum() {
+    //    let items = document.getElementsByName('prodQnty');
+    //    let total = 0;
+    //    for (let i = 0; i < items.length; i++) {
+    //        if (parseInt(items[i].value))
+    //            total += parseInt(items[i].value);
+    //    }
+    //   document.getElementById('total').value = total;
+    //}
+    //
 
 </script>
 
+
 <div id="container">
     <div id="a">
-        <p>Date goes here </p>
+        @{
+            var date = DateTime.Now;
+        }
+        <p> @date</p>
+        
 
         <form method="get">
             <button type="submit" class="ml-2 btn btn-link" asp-page="./Manager">Manage items</button>
@@ -37,38 +60,48 @@
     </div>
 
 
+
     <div id="b">
         <div id="itemsMenu">
             @foreach (var item in Model.Product)
             {
-                <button class="prods" asp-page="/order" onclick="chooseProduct(@item.ProductId)" asp-route-id="@item.ProductId">@Html.DisplayFor(modelItem => item.Name)</button>
-
-                @*
-                    either this:
-                <input type="button" class="prods" name="product" value="@Html.DisplayFor(modelItem => item.Name)" onclick="chooseProduct(@item.ProductId)">*@
+                <input type="button" class="prods" name="product" value="@Html.DisplayFor(modelItem => item.Name)" onclick="chooseProduct(@item.ProductId)">
             }
         </div>
     </div>
 
     <div id="c">
         <div id="display">
+            
             <dl>
-                <dt id="prodName"></dt>
-                <dd id="prodPrice"></dd>
+                <dt>
+                    <input type="text" id="prodName" name="prodName" placeholder="product" readonly>
+                </dt>
                 <dd>
-                    <input type="text" id="prodQnty" name="displayQnty">
+                    <input type="text" id="prodPrice" name="displayPrice" readonly>
+                </dd>
+                <dd>
+                    <input type="text" id="prodQnty" name="displayQnty" readonly>
                 </dd>
                 <dt>Subtotal:</dt>
                 <dd>
-                    <input type="text" id="subtotal" name="displaySubtotal" placeholder="0 EUR">
+                    <input type="text" id="subtotal" name="displaySubtotal" placeholder="0 EUR" readonly>
                 </dd>
                 <dt>Discount:</dt>
                 <dd>
-                    <input type="text" id="discount" name="displayDiscount" placeholder="0 %">
+                    <input type="text" id="discount" name="displayDiscount" placeholder="0 %" readonly>
                 </dd>
                 <dt>Total:</dt>
-                <dd> 
-                    <input type="text" id="total" name="displayTotal" placeholder="0 EUR">
+                <dd>
+                    <input type="text" id="total" name="displayTotal" placeholder="0 EUR" readonly>
+                </dd>
+                <dt>Paid:</dt>
+                <dd>
+                    <input type="text" id="paid" name="displayPaidAmount" placeholder="0 EUR" readonly>
+                </dd>
+                <dt>Change due:</dt>
+                <dd>
+                    <input type="text" id="change" name="displayChange" placeholder="0 EUR" readonly>
                 </dd>
             </dl>
         </div>
@@ -84,10 +117,9 @@
             <input type="button" class="calc" name="0" value="0" onclick="calculate(0)">
             <input type="button" class="calc" name="1" value="1" onclick="calculate(1)">
             <input type="button" id="disc_btn" class="calc" name="discount" value="%" onclick="">
-            <button id="enter_btn" class="calc" type="submit" onclick="subtotal()">Enter</button>
-           
-            <button id="receipt_btn" class="calc" type="submit" onclick="finalResult(); window.location.href='https://localhost:7239/receipt';">Receipt</button>
-        </div> 
+            <button id="enter_btn" class="calc" type="submit" onclick="subtotal(); clearAmount();">Enter</button>
+            <button id="receipt_btn" class="calc" type="submit" onclick="receiptTotalSum(); window.location.href='https://localhost:7239/receipt';">Receipt</button>
+        </div>
     </div>
 
 </div>

@@ -92,7 +92,7 @@ dd {
 }
 
 #display input {
-    border: none;
+    /*border: none;*/
     text-align: end;
 }
 
