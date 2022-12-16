@@ -9,40 +9,63 @@
 <h1 id="lobsterFont">Product Menu</h1>
 <script>
     const items = @Json.Serialize(Model.Product.Select(p => new {p.ProductId, p.Name, p.Price}));
+
+    const order = {
+        "lineItems": [],
+        "discountPercentage": 0,
+        "paidInCashEur": 0
+    };
+
+    // const order = {
+    //     "lineItems": [
+    //         {
+    //             "productId": "12345",
+    //             "quantity": 2
+    //         },
+    //         {
+    //             "productId": "12346",
+    //             "quantity": 5
+    //         }
+    //     ],
+    //     "discountPercentage": 10,
+    //     "paidInCashEur": 50.0
+    // };
+
     //display product name and price per item
-    function chooseProduct(productId) {
+
+    const chooseProduct = (productId) => {
         const product = items.find(i => i.productId === productId);
         document.getElementById('prodName').value = product.name;
         document.getElementById('prodPrice').value = product.price;
     }
-    //display product quantity
-    function calculate(value) {
+
+
+    const inputDiscount = value =>
+        document.getElementById('discount').ariaValueMax += value;
+
+    const inputQuantity = value =>
         document.getElementById('prodQnty').value += value;
-    }
+
+
     //calculate and display line total (subtotal) = returns NaN
-    function subtotal(value) {
-        document.getElementById('subtotal').value = (document.getElementById('prodPrice').value) * (document.getElementById('prodQnty').value);
+    const lineTotal = value => {
+        document.getElementById('lineTotal').value = (document.getElementById('prodPrice').value) * (document.getElementById('prodQnty').value);
     }
-    //clear quantity input after calculating line amount
-    function clearAmount() {
-        document.getElementById('prodQnty').value = "";
-    }
-    //apply discount
-    function applyDiscount() {
-    }
-    //total sum of receipt - return 0! Array problem?
 
-    //function receiptTotalSum() {
-    //    let items = document.getElementsByName('prodQnty');
-    //    let total = 0;
-    //    for (let i = 0; i < items.length; i++) {
-    //        if (parseInt(items[i].value))
-    //            total += parseInt(items[i].value);
-    //    }
-    //   document.getElementById('total').value = total;
-    //}
-    //
 
+
+    async function finalize() {
+        const response = await fetch('/api/order', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(order)
+        });
+
+        const orderId = (await response.json()).orderId;
+        alert(`Order with id ${orderId} has been created`);
+    }
 </script>
 
 
@@ -52,7 +75,6 @@
             var date = DateTime.Now;
         }
         <p> @date</p>
-        
 
         <form method="get">
             <button type="submit" class="ml-2 btn btn-link" asp-page="./Manager">Manage items</button>
@@ -71,55 +93,73 @@
     </div>
 
     <div id="c">
-        <div id="display">
-            
-            <dl>
-                <dt>
-                    <input type="text" id="prodName" name="prodName" placeholder="product" readonly>
-                </dt>
-                <dd>
-                    <input type="text" id="prodPrice" name="displayPrice" readonly>
-                </dd>
-                <dd>
-                    <input type="text" id="prodQnty" name="displayQnty" readonly>
-                </dd>
-                <dt>Subtotal:</dt>
-                <dd>
-                    <input type="text" id="subtotal" name="displaySubtotal" placeholder="0 EUR" readonly>
-                </dd>
-                <dt>Discount:</dt>
-                <dd>
-                    <input type="text" id="discount" name="displayDiscount" placeholder="0 %" readonly>
-                </dd>
-                <dt>Total:</dt>
-                <dd>
-                    <input type="text" id="total" name="displayTotal" placeholder="0 EUR" readonly>
-                </dd>
-                <dt>Paid:</dt>
-                <dd>
-                    <input type="text" id="paid" name="displayPaidAmount" placeholder="0 EUR" readonly>
-                </dd>
-                <dt>Change due:</dt>
-                <dd>
-                    <input type="text" id="change" name="displayChange" placeholder="0 EUR" readonly>
-                </dd>
-            </dl>
-        </div>
-        <div id="calculator">
-            <input type="button" class="calc" name="7" value="7" onclick="calculate(7)">
-            <input type="button" class="calc" name="8" value="8" onclick="calculate(8)">
-            <input type="button" class="calc" name="9" value="9" onclick="calculate(9)">
-            <input type="button" class="calc" name="4" value="4" onclick="calculate(4)">
-            <input type="button" class="calc" name="5" value="5" onclick="calculate(5)">
-            <input type="button" class="calc" name="6" value="6" onclick="calculate(6)">
-            <input type="button" class="calc" name="2" value="2" onclick="calculate(2)">
-            <input type="button" class="calc" name="3" value="3" onclick="calculate(3)">
-            <input type="button" class="calc" name="0" value="0" onclick="calculate(0)">
-            <input type="button" class="calc" name="1" value="1" onclick="calculate(1)">
-            <input type="button" id="disc_btn" class="calc" name="discount" value="%" onclick="">
-            <button id="enter_btn" class="calc" type="submit" onclick="subtotal(); clearAmount();">Enter</button>
-            <button id="receipt_btn" class="calc" type="submit" onclick="receiptTotalSum(); window.location.href='https://localhost:7239/receipt';">Receipt</button>
-        </div>
+        <form onsubmit="callvalue()">
+        
+        @*<form action="https://localhost:7239/receipt" method="get" id="calcForm">*@
+            <div id="display">
+                <div style="display: inline">
+                    <input type="text" id="prodName" name="product_name" readonly />
+                    <input type="text" inputmode="numeric" id="prodPrice" name="product_price" readonly />
+                    <input type="text" inputmode="numeric" id="prodQnty" name="product_quantity" readonly />
+                </div>
+                <div>
+                    <input type="text" inputmode="numeric" id="lineTotal" name="line_total" readonly>
+                </div>
+                <div>
+                    <label for="subtotal">Subtotal:</label>
+                    <input type="text" inputmode="numeric" id="subtotal" name="subtotal" readonly>
+                </div>
+                <div>
+                    <label for="discount_percentage">Discount:</label>
+                    <input type="text" inputmode="numeric" id="discount" name="discount_percentage" readonly>
+                </div>
+                <div>
+                    <label for="total">Total:</label>
+                    <input type="text" inputmode="numeric" id="total" name="total" readonly>
+                </div>
+                <div>
+                    <label for="paid">Paid:</label>
+                    <input type="text" inputmode="numeric" id="paid" name="paid" readonly>
+                </div>
+                <div>
+                    <label for="change">Change:</label>
+                    <input type="text" inputmode="numeric" id="change" name="change" readonly>
+                </div>
+            </div>
+
+            <div id="calculator">
+                <input type="button" class="calc" name="7" value="7" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="8" value="8" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="9" value="9" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="4" value="4" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="5" value="5" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="6" value="6" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="2" value="2" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="3" value="3" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="0" value="0" onclick="inputQuantity(value)">
+                <input type="button" class="calc" name="1" value="1" onclick="inputQuantity(value)">
+
+                <button type="button" id="disc_btn" class="calc">Discount</button>
+                <button type="button" id="cash_btn" class="calc">Cash</button>
+                <button type="button" id="enter_btn" class="calc" onclick="lineTotal()">Enter</button>
+                <button type="submit" id="receipt_btn" class="calc">Receipt</button>
+            </div>
+        </form>
+
+
+
     </div>
 
 </div>
+
+<script>
+
+    function callvalue(){
+        let name = document.getElementById('prodName').value;
+        let price = document.getElementById('prodPrice').value;
+        let quantity = document.getElementById('prodQnty').value;
+
+        document.writeln('Nr.1: ' + name + ' ' + price + ' EUR x ' + quantity);
+
+    }
+</script>

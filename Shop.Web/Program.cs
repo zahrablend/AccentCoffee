@@ -28,6 +28,8 @@ namespace Shop.Web
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            //Line added lesson 3
+            builder.Services.AddMvc();
 
             var app = builder.Build();
 
@@ -48,6 +50,8 @@ namespace Shop.Web
             app.UseAuthorization();
 
             app.MapRazorPages();
+            //Line added lesson 3
+            app.MapControllers();
 
             app.Run();
         }
